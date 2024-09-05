@@ -8,7 +8,7 @@ if [ "$OSTYPE" == "msys" ]; then
     compiler=C:/msys64/mingw64/bin/g++.exe
     lib_dir=lib/win64
     extra_args=-lglfw3dll
-elif [ "$OSTYPE" == "darwin"* ]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
     compiler=/usr/bin/g++
     lib_dir=lib/mac
     extra_args="lib/mac/libglfw.3.4.dylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework CoreFoundation -Wno-deprecated"
