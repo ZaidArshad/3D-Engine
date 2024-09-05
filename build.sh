@@ -1,7 +1,7 @@
 cpp_ver=c++17
 compiler_options="-g -Wall"
 include_dir=include
-src_files="src/*.cpp src/glad.c"
+src_files=$(find "src" -name "*.cpp" -o -name "*.c")
 out_file=app
 
 if [ "$OSTYPE" == "msys" ]; then
