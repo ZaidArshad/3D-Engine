@@ -1,4 +1,2 @@
 app.dSYM
-app
-app.exe
-cutable.exe
+out/

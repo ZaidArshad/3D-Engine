@@ -16,9 +16,10 @@ else
 endif
 
 SRC_FILES = $(shell find "src" -name "*.cpp" -o -name "*.c")
-OUT_FILE = app
+OUT_FILE = out/app
 
 build:
+	mkdir -p out
 	g++ -std=$(CPP_VER) $(COMPILER_OPTIONS) $(INCLUDES) $(LINKS) $(SRC_FILES) $(EXTRA_ARGS) -o $(OUT_FILE)
 
 clean:
