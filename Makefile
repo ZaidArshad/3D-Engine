@@ -1,6 +1,6 @@
 CPP_VER = c++17
-COMPILER_OPTIONS := -g -Wall
-INCLUDES := -Iinclude
+COMPILER_OPTIONS := -g -Wall -Wno-deprecated -Wno-unused-but-set-variable
+INCLUDES := -Iinclude -Isrc
 
 ifeq ($(OS), Windows_NT)
 	LINKS := -Llib/win64
@@ -9,13 +9,13 @@ else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S), Darwin)
 		LINKS := -Llib/mac
-		EXTRA_ARGS = lib/mac/libglfw.3.4.dylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework CoreFoundation -Wno-deprecated
+		EXTRA_ARGS = lib/mac/libglfw.3.4.dylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework CoreFoundation
 	else
 		ERROR := $(error OS is not configured in the Makefile)
 	endif
 endif
 
-SRC_FILES = $(shell find "src" -name "*.cpp" -o -name "*.c")
+SRC_FILES = $(shell find src -name "*.cpp" -o -name "*.c")
 OUT_FILE = out/app
 
 build:
