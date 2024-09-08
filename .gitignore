@@ -1,5 +1,6 @@
 app.dSYM
 out/
+log.txt
 
 .vs/3D-Engine
 .vs/slnx.sqlite

@@ -38,13 +38,11 @@ App::App()
 
 Status App::setup()
 {
-    std::cout << "test1" << std::endl;
-
     /* Initialize the library */
     if (!glfwInit())
     {
         Logger::log("Error initializing GLFW\n");
-        return -1;
+        return STATUS_BAD;
     }
 
     /* Create a windowed mode window and its OpenGL context */
@@ -53,40 +51,31 @@ Status App::setup()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     m_window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT,
                                 "DuelingGame", NULL, NULL);
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+
     if (!m_window)
     {
         Logger::log("Error initializing GLFW\n");
         return STATUS_BAD;
     }
 
-    std::cout << "test2" << std::endl;
-
     /* Make the window's context current */
     glfwMakeContextCurrent(m_window);
     glfwSwapInterval(1);
-
-    if (glfwInit() != GLFW_TRUE)
-    {
-        Logger::log("Error initializing GLFW\n");
-        return STATUS_BAD;
-    }
-
-    std::cout << "test3" << std::endl;
-
-    m_options = new Options();
-    glfwSetWindowUserPointer(m_window, m_options);
-    glfwSetScrollCallback(m_window, scroll_callback);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
+        Logger::log("Failed to initialize GLAD\n");
+        return STATUS_BAD;
     }
 
-    std::cout << "test4" << std::endl;
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    m_options = new Options();
+    glfwSetWindowUserPointer(m_window, m_options);
+    glfwSetScrollCallback(m_window, scroll_callback);
 
     Logger::log((const char *)glGetString(GL_VERSION));
     glEnable(GL_DEPTH_TEST);
