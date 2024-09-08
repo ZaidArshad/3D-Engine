@@ -1,0 +1,12 @@
+{
+    "version": "0.2.1",
+    "tasks": [
+    {
+        "taskLabel": "makefile-build",
+        "appliesTo": "Makefile",
+        "type": "launch",
+        "contextType": "build",
+        "command": "make"
+    }
+  ]
+}

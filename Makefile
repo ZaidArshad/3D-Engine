@@ -1,10 +1,10 @@
 CPP_VER = c++17
-COMPILER_OPTIONS := -g -Wall -Wno-deprecated -Wno-unused-but-set-variable
+COMPILER_OPTIONS := -g -Wall -Wno-deprecated
 INCLUDES := -Iinclude -Isrc
 
 ifeq ($(OS), Windows_NT)
 	LINKS := -Llib/win64
-	EXTRA_ARGS = -lglfw3dll
+	EXTRA_ARGS = -lglfw3dll  -Wno-unused-but-set-variable
 else 
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S), Darwin)
