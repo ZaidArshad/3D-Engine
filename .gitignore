@@ -1,2 +1,7 @@
 app.dSYM
 out/
+
+.vs\3D-Engine\v16
+.vs\slnx.sqlite
+.vs\VSWorkspaceState.json
+.vs\ProjectSettings.json
