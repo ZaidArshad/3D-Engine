@@ -13,7 +13,7 @@ void main()
 	{
 		color = out_color;
 	}
-	else if (out_texCoord != 0)
+	else if (out_texCoord != vec2(0.0f, 0.0f))
 	{
 		vec4 texColor = texture(u_Texture, out_texCoord);
 		color = texColor;
@@ -22,4 +22,4 @@ void main()
 	{
 		color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
-};
+}

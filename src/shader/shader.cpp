@@ -67,7 +67,7 @@ Status Shader::compileShader(GLuint &shader, std::string &shaderSource, GLenum t
     {
         int length;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
-        char *message = (char *)_malloca(length * sizeof(char));
+        char *message = (char *)malloc(length * sizeof(char));
         glGetShaderInfoLog(shader, length, &length, message);
         std::stringstream log;
         log << "Failed to compile "
@@ -76,6 +76,7 @@ Status Shader::compileShader(GLuint &shader, std::string &shaderSource, GLenum t
             << message;
         Logger::log(log.str());
         glDeleteShader(shader);
+        free(message);
         deleteShader();
         return STATUS_BAD;
     }
