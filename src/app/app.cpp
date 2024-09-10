@@ -36,6 +36,11 @@ App::App()
     m_options = nullptr;
 }
 
+App::~App()
+{
+    delete m_options;
+}
+
 Status App::setup()
 {
     /* Initialize the library */
@@ -49,9 +54,9 @@ Status App::setup()
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+
     m_window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT,
                                 "DuelingGame", NULL, NULL);
-
 
     if (!m_window)
     {
@@ -71,9 +76,12 @@ Status App::setup()
         return STATUS_BAD;
     }
 
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    // Fixes viewport issues on mac
+    int width, height;
+    glfwGetFramebufferSize(m_window, &width, &height);
+    glViewport(0, 0, width, height);
 
-    m_options = new Options();
+    m_options = new Options(); // TODO FIX, no constructor?
     glfwSetWindowUserPointer(m_window, m_options);
     glfwSetScrollCallback(m_window, scroll_callback);
 

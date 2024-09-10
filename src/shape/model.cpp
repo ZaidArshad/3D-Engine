@@ -4,6 +4,7 @@
 #include <sstream>
 #include <numeric>
 #include <filesystem>
+#include <ranges>
 
 #include "model.h"
 #include "obj_constants.h"
@@ -16,10 +17,15 @@ Model::Model(const std::string &dir)
 	m_frameIndex = 0;
 	m_frameGap = 0;
 
-	// Reading the obj files in the directory
-	for (const auto &file : std::filesystem::directory_iterator(dir))
-	{
-		parseOBJFile(file.path().string());
+	// Reading the obj files from the given directory
+	const auto fileRange = std::ranges::transform_view(
+		std::filesystem::directory_iterator(dir),
+		[](const auto &entry) { return entry.path().string(); });
+	auto filePaths = std::ranges::to<std::vector<std::string>>(fileRange);
+	std::sort(filePaths.begin(), filePaths.end());
+
+	for (const auto &path : filePaths) {
+		parseOBJFile(path);
 	}
 
 	if (m_vaFrames.empty())

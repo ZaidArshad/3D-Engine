@@ -5,7 +5,7 @@
 #define Status unsigned int
 
 constexpr int WINDOW_WIDTH = 640;
-constexpr const int WINDOW_HEIGHT = 480;
+constexpr int WINDOW_HEIGHT = 480;
 
 constexpr Status STATUS_OK = 0U;
 constexpr Status STATUS_BAD = 1U;
