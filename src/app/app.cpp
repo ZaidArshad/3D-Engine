@@ -81,7 +81,7 @@ Status App::setup()
     glfwGetFramebufferSize(m_window, &width, &height);
     glViewport(0, 0, width, height);
 
-    m_options = new Options(); // TODO FIX, no constructor?
+    m_options = new Options;
     glfwSetWindowUserPointer(m_window, m_options);
     glfwSetScrollCallback(m_window, scroll_callback);
 
@@ -169,11 +169,6 @@ Status App::run()
 
     float r = 0;
     float i = 0.005f;
-
-    glfwSwapInterval(1);
-
-    // double prev = glfwGetTime();
-    // float frames = 0;
 
     ///* Loop until the user closes the window */
     while (!glfwWindowShouldClose(m_window) && !glfwGetKey(m_window, GLFW_KEY_ESCAPE))
