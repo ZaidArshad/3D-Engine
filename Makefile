@@ -1,8 +1,8 @@
-.DEFAULT_GOAL := all
-
-CPP_VER = c++23
+CPP_VER = c++20
 COMPILER_OPTIONS := -g -Wall -Wno-deprecated -Wno-unused-but-set-variable
 INCLUDES := -Iinclude -Isrc
+OUT_DIR = out
+SRD_DIR = src
 
 ifeq ($(OS), Windows_NT)
 	LINKS := -Llib/win64
@@ -17,15 +17,23 @@ else
 	endif
 endif
 
-SRC_FILES = $(shell find src -name "*.cpp" -o -name "*.c")
-OUT_FILE = out/app
+SRC_CPP = $(shell find src -name "*.cpp")
+SRC_C = $(shell find src -name "*.c" )
+OBJS := $(SRC_CPP:%.cpp=%.o) $(SRC_C:%.c=%.o)
+OBJECTS =$(patsubst %, out/%, $(OBJS))
 
-% : %.cpp
-	g++-14 -std=$(CPP_VER) $(COMPILER_OPTIONS) $(INCLUDES) -c $< -o out/$@.o
+all: $(OBJECTS)
+	g++ -std=$(CPP_VER) $(COMPILER_OPTIONS) $(LINKS) $(OBJECTS) $(EXTRA_ARGS) -o out/app
 
-all:
-	mkdir -p out
-	g++-14 -std=$(CPP_VER) $(COMPILER_OPTIONS) $(INCLUDES) $(LINKS) $(SRC_FILES) $(EXTRA_ARGS) -o $(OUT_FILE)
+out/%.o: %.cpp
+	mkdir -p $(@D)
+	g++ -std=$(CPP_VER) $(COMPILER_OPTIONS) $(INCLUDES) -c $< -o $@
+
+out/%.o: %.c
+	mkdir -p $(@D)
+	g++ -std=$(CPP_VER) $(COMPILER_OPTIONS) $(INCLUDES) -c $< -o $@
 
 clean:
+	rm -rf out/src
+	rm app.exe
 	rm app
