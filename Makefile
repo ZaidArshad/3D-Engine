@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := all
+
 CPP_VER = c++23
 COMPILER_OPTIONS := -g -Wall -Wno-deprecated -Wno-unused-but-set-variable
 INCLUDES := -Iinclude -Isrc
@@ -18,7 +20,10 @@ endif
 SRC_FILES = $(shell find src -name "*.cpp" -o -name "*.c")
 OUT_FILE = out/app
 
-build:
+% : %.cpp
+	g++-14 -std=$(CPP_VER) $(COMPILER_OPTIONS) $(INCLUDES) -c $< -o out/$@.o
+
+all:
 	mkdir -p out
 	g++-14 -std=$(CPP_VER) $(COMPILER_OPTIONS) $(INCLUDES) $(LINKS) $(SRC_FILES) $(EXTRA_ARGS) -o $(OUT_FILE)
 

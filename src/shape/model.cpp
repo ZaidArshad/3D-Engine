@@ -24,7 +24,8 @@ Model::Model(const std::string &dir)
 	auto filePaths = std::ranges::to<std::vector<std::string>>(fileRange);
 	std::sort(filePaths.begin(), filePaths.end());
 
-	for (const auto &path : filePaths) {
+	for (const auto &path : filePaths)
+	{
 		parseOBJFile(path);
 	}
 
