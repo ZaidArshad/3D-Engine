@@ -134,7 +134,7 @@ Status App::run()
     Renderer renderer;
 
     Box box = Box(0.25, 0.25);
-    box.translate(-0.5, 0.375, -1);
+    box.translate(glm::vec3(-0.5, 0.375, -1));
     box.setTexture("res/Images/him.PNG");
     renderer.addShape(&box, true);
 
@@ -145,11 +145,11 @@ Status App::run()
     renderer.addShape(&box2, true);
 
     Box box3 = Box(0.25, 0.25);
-    box3.translate(0.5, 0.5, 0);
+    box3.translate(glm::vec3(0.5, 0.5, 0));
     renderer.addShape(&box3);
 
     Pyramid pyramid = Pyramid(0.05f);
-    pyramid.translate(0, 2, -1);
+    pyramid.translate(glm::vec3(0, 2, -1));
     pyramid.setTexture("res/Images/france.png");
     renderer.addShape(&pyramid, true);
 
@@ -161,8 +161,8 @@ Status App::run()
     {
         Cube *tower = new Cube(0.05f);
         towers.push_back(tower);
-        tower->translate(1 * (i % 2) - 0.5, 0.15f, (i % 3) * -1);
-        tower->scale(1, 4, 1);
+        tower->translate(glm::vec3(1 * (i % 2) - 0.5, 0.15f, (i % 3) * -1));
+        tower->scale(glm::vec3(1, 4, 1));
         tower->setTexture("res/Images/fella.png");
         renderer.addShape(tower, true);
     }

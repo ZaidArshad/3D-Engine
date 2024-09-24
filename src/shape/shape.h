@@ -20,11 +20,11 @@ public:
 	const glm::vec3 getRotation();
 
 	// -- Utility -- //
-	void shift(float x, float y, float z);
-	void translate(float x, float y, float z);
+	void shift(glm::vec3 translation);
+	void translate(glm::vec3 translation);
 	void rotate(glm::vec3 rotation);
 	void setRotation(glm::vec3 rotation);
-	void scale(float x, float y, float z);
+	void scale(glm::vec3 scale);
 	void resetModel();
 
 	// -- Virtual -- //

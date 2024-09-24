@@ -54,18 +54,18 @@ const glm::vec3 Shape::getRotation()
 	return m_rotation;
 }
 
-void Shape::shift(float x, float y, float z)
+void Shape::shift(glm::vec3 translation)
 {
 	glm::vec3 rotation = m_rotation;
 	setRotation(glm::vec3(0.0f));
-	translate(x, y, z);
+	translate(translation);
 	setRotation(rotation);
 }
 
 //  -- Utility -- //
-void Shape::translate(float x, float y, float z)
+void Shape::translate(glm::vec3 translation)
 {
-	m_modelMat = glm::translate(m_modelMat, glm::vec3(x, y, z));
+	m_modelMat = glm::translate(m_modelMat, translation);
 }
 
 void Shape::rotate(glm::vec3 rotation)
@@ -84,9 +84,9 @@ void Shape::setRotation(glm::vec3 rotation)
 	rotate(rotation);
 }
 
-void Shape::scale(float x, float y, float z)
+void Shape::scale(glm::vec3 scale)
 {
-	m_modelMat = glm::scale(m_modelMat, glm::vec3(x, y, z));
+	m_modelMat = glm::scale(m_modelMat, scale);
 }
 
 void Shape::resetModel()
