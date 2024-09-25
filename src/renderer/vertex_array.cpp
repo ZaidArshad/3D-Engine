@@ -33,6 +33,11 @@ VertexArray::~VertexArray()
 	m_IBO = 0;
 }
 
+const std::vector<VertexLayout> VertexArray::getVertexLayouts()
+{
+	return m_vertexLayouts;
+}
+
 void VertexArray::bind()
 {
 	glBindVertexArray(m_VAO);

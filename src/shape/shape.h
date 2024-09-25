@@ -29,6 +29,7 @@ public:
 
 	// -- Virtual -- //
 	virtual void draw();
+	std::vector<glm::vec3> getHitboxCoords();
 
 protected:
 	VertexArray *m_pVA;

@@ -107,3 +107,19 @@ void Shape::draw()
 		m_pVA->draw();
 	}
 }
+
+std::vector<glm::vec3> Shape::getHitboxCoords()
+{
+	std::vector<glm::vec3> hitboxCoords;
+	const glm::vec3 origin = glm::vec3(m_modelMat[3]);
+	const auto positionVL = m_pVA->getVertexLayouts()[0];
+
+	for (int i = 0; i < positionVL.vertices.size(); i += 3)
+	{
+		glm::vec3 coordinate(positionVL.vertices[i],
+							 positionVL.vertices[i + 1],
+							 positionVL.vertices[i + 2]);
+		hitboxCoords.push_back(coordinate + origin);
+	}
+	return hitboxCoords;
+}

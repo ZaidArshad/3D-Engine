@@ -149,9 +149,14 @@ Status App::run()
     renderer.addShape(&box3);
 
     Pyramid pyramid = Pyramid(0.05f);
-    pyramid.translate(glm::vec3(0, 2, -1));
+    pyramid.translate(glm::vec3(0, 0.2, -1));
     pyramid.setTexture("res/Images/france.png");
     renderer.addShape(&pyramid, true);
+
+    Cube cube = Cube(0.05f);
+    cube.translate(glm::vec3(0, 0, -1));
+    cube.setTexture("res/Images/france.png");
+    renderer.addShape(&cube, true);
 
     Player player;
     renderer.addShape(player.getModel(), true);
@@ -184,6 +189,8 @@ Status App::run()
         renderer.getCamera()->pan(m_window, m_options->scroll / 10);
         renderer.getCamera()->followModel(player.getModel()->getModelMatrix());
         m_options->scroll = 0;
+
+        std::cout << player.checkCollision(&cube) << std::endl;
 
         renderer.clear();
 

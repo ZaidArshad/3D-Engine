@@ -22,6 +22,8 @@ public:
 				const std::vector<unsigned int> &indices);
 	~VertexArray();
 
+	const std::vector<VertexLayout> getVertexLayouts();
+
 	void bind();
 	void unbind();
 	void addBuffer(const std::vector<float> &vertices, unsigned int stride);

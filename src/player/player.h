@@ -12,6 +12,7 @@ public:
 	Shape *getModel();
 
 	void move(GLFWwindow *window);
+	bool checkCollision(Shape *collider);
 
 private:
 	InputController m_controller;

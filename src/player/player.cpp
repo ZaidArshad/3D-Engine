@@ -10,8 +10,7 @@ Player::Player()
 	m_model = new Model("res/Models/waddle/frames/");
 	m_model->setTexture("res/Models/waddle/HrDee.00.png");
 	m_model->scale(glm::vec3(0.1f));
-	// m_model->translate(0.0f, 0.0f, 0.0f);
-	m_velocity = 0.10;
+	m_velocity = 0.025f;
 }
 
 Player::~Player()
@@ -46,4 +45,20 @@ void Player::move(GLFWwindow *window)
 
 	const auto translation = glm::vec3(-x, 0, z);
 	m_model->shift(translation * m_velocity);
+}
+
+bool Player::checkCollision(Shape *collider)
+{
+	const auto ellipse = glm::vec3(0.08f);
+	const auto playerOrigin = glm::vec3(m_model->getModelMatrix()[3]);
+	const auto coords = collider->getHitboxCoords();
+	for (const auto &hitboxCoord : coords)
+	{
+		glm::vec3 result = (playerOrigin - hitboxCoord) / (ellipse);
+		if (glm::length(result) < 1)
+		{
+			return true;
+		}
+	}
+	return false;
 }
