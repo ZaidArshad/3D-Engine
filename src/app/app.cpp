@@ -154,7 +154,7 @@ Status App::run()
     renderer.addShape(&pyramid, true);
 
     Cube cube = Cube(0.05f);
-    cube.translate(glm::vec3(0, 0, -1));
+    cube.translate(glm::vec3(0, 0.05, -1));
     cube.setTexture("res/Images/france.png");
     renderer.addShape(&cube, true);
 

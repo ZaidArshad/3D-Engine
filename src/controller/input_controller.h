@@ -7,7 +7,7 @@ class InputController
 {
 public:
 	InputController();
-	void move2D(GLFWwindow *window, int *x, int *y);
+	void move3D(GLFWwindow *window, int *x, int *y, int *z);
 	void mouseDrag2D(GLFWwindow *window, double *x, double *y);
 
 private:

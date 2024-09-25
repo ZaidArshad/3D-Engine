@@ -10,15 +10,18 @@ InputController::InputController()
 	m_mouseClicked = false;
 }
 
-void InputController::move2D(GLFWwindow *window, int *x, int *y)
+void InputController::move3D(GLFWwindow *window, int *x, int *y, int *z)
 {
 	int left = glfwGetKey(window, GLFW_KEY_LEFT);
 	int right = glfwGetKey(window, GLFW_KEY_RIGHT);
-	int up = glfwGetKey(window, GLFW_KEY_UP);
-	int down = glfwGetKey(window, GLFW_KEY_DOWN);
+	int forward = glfwGetKey(window, GLFW_KEY_UP);
+	int back = glfwGetKey(window, GLFW_KEY_DOWN);
+	int up = glfwGetKey(window, GLFW_KEY_SPACE);
+	int down = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL);
 
 	*x = (right - left);
 	*y = (up - down);
+	*z = (forward - back);
 }
 
 void InputController::mouseDrag2D(GLFWwindow *window, double *x, double *y)
