@@ -49,6 +49,11 @@ Model::~Model()
 	}
 }
 
+const glm::vec3 Model::getDimensions()
+{
+	return m_dimensions;
+}
+
 // Goes to the next frame of animation
 void Model::nextFrame()
 {
@@ -84,11 +89,7 @@ void printVectorVecs(std::vector<T> &outerVec, int length)
 {
 	for (auto &innerVec : outerVec)
 	{
-		for (int i = 0; i < length; i++)
-		{
-			std::cout << innerVec[i] << " ";
-		}
-		std::cout << std::endl;
+		AppTools::printVec(innerVec, length);
 	}
 }
 
@@ -157,6 +158,9 @@ void Model::parseOBJFile(const std::string &path)
 {
 	std::cout << std::fixed << std::setprecision(6);
 
+	glm::vec3 minPoints(INFINITY);
+	glm::vec3 maxPoints(-INFINITY);
+
 	std::vector<glm::vec3> positions;
 	std::vector<glm::vec2> textures;
 	std::vector<glm::vec3> normals;
@@ -174,7 +178,14 @@ void Model::parseOBJFile(const std::string &path)
 
 		if (opcode == STR_OBJ_VERTEX_POSITION)
 		{
-			positions.push_back(bufferToVec<glm::vec3>(buffer, 3));
+			glm::vec3 currentPos = bufferToVec<glm::vec3>(buffer, 3);
+
+			for (int i = 0; i < 3; i++)
+			{
+				minPoints[i] = glm::min(currentPos[i], minPoints[i]);
+				maxPoints[i] = glm::max(currentPos[i], maxPoints[i]);
+			}
+			positions.push_back(currentPos);
 		}
 		else if (opcode == STR_OBJ_VERTEX_TEXTURE)
 		{
@@ -204,6 +215,8 @@ void Model::parseOBJFile(const std::string &path)
 			faces.push_back(face);
 		}
 	}
+
+	m_dimensions = maxPoints - minPoints;
 
 	generateModel(positions, textures, normals, faces);
 }

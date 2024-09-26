@@ -39,11 +39,12 @@ float AppTools::calculateHeading(float x, float y)
 	return heading;
 }
 
-void AppTools::printVector(const std::vector<float> &vec)
+template <class T>
+void AppTools::printVec(const T &vec, int length)
 {
-	for (float f : vec)
+	for (int i = 0; i < length; i++)
 	{
-		std::cout << f << " ";
+		std::cout << vec[i] << " ";
 	}
 	std::cout << std::endl;
 }

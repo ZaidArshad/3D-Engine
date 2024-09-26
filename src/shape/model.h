@@ -18,6 +18,9 @@ public:
 	Model(const std::string &dir);
 	virtual ~Model();
 
+	// -- Getters -- //
+	const glm::vec3 getDimensions();
+
 	// -- Utility -- //
 	void nextFrame();
 	void resetFrames();
@@ -34,6 +37,7 @@ private:
 
 	// One frame for each model loaded
 	std::vector<VertexArray *> m_vaFrames;
+	glm::vec3 m_dimensions;
 	unsigned int m_frameIndex;
 	unsigned int m_frameGap;
 };

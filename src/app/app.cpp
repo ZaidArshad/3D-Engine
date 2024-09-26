@@ -158,6 +158,17 @@ Status App::run()
     cube.setTexture("res/Images/france.png");
     renderer.addShape(&cube, true);
 
+    Box sizer = Box(0.141652f, 0.108568f);
+    sizer.translate(glm::vec3(0, 0.108568f, 0));
+    sizer.setColor(0.5f, 0.5f, 0.5f, 1.0f);
+    renderer.addShape(&sizer, true);
+
+    Box sizer2 = Box(0.105540f, 0.108568f);
+    sizer2.translate(glm::vec3(0, 0.108568f, 0));
+    sizer2.rotate(glm::vec3(0, glm::half_pi<float>(), 0));
+    sizer2.setColor(0.5f, 0.5f, 0.5f, 1.0f);
+    renderer.addShape(&sizer2, true);
+
     Player player;
     renderer.addShape(player.getModel(), true);
 

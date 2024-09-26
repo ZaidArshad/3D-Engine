@@ -17,5 +17,6 @@ public:
 	static float normalizeY(float position);
 	static float calculateHeading(float x, float y);
 
-	static void printVector(const std::vector<float> &vec);
+	template <class T>
+	static void printVec(const T &vec, int length);
 };

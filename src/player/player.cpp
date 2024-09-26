@@ -50,7 +50,8 @@ void Player::move(GLFWwindow *window)
 
 bool Player::checkCollision(Shape *collider)
 {
-	const auto ellipse = glm::vec3(0.08f);
+	const auto ellipse = m_model->getDimensions() * (0.1f / 2);
+
 	const auto playerOrigin = glm::vec3(m_model->getModelMatrix()[3]);
 	const auto coords = collider->getHitboxCoords();
 	for (const auto &hitboxCoord : coords)
