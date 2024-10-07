@@ -153,21 +153,11 @@ Status App::run()
     pyramid.setTexture("res/Images/france.png");
     renderer.addShape(&pyramid, true);
 
-    Cube cube = Cube(0.05f);
-    cube.translate(glm::vec3(0, 0.05, -1));
-    cube.setTexture("res/Images/france.png");
-    renderer.addShape(&cube, true);
-
-    Box sizer = Box(0.141652f, 0.108568f);
-    sizer.translate(glm::vec3(0, 0.108568f, 0));
-    sizer.setColor(0.5f, 0.5f, 0.5f, 1.0f);
-    renderer.addShape(&sizer, true);
-
-    Box sizer2 = Box(0.105540f, 0.108568f);
-    sizer2.translate(glm::vec3(0, 0.108568f, 0));
-    sizer2.rotate(glm::vec3(0, glm::half_pi<float>(), 0));
-    sizer2.setColor(0.5f, 0.5f, 0.5f, 1.0f);
-    renderer.addShape(&sizer2, true);
+    Box collider = Box(0.1f, 0.1f);
+    collider.translate(glm::vec3(0.05, 0.05, 0.05));
+    // collider.rotate(glm::vec3(0, glm::half_pi<float>(), 0));
+    collider.setTexture("res/Images/france.png");
+    renderer.addShape(&collider, true);
 
     Player player;
     renderer.addShape(player.getModel(), true);
@@ -201,7 +191,7 @@ Status App::run()
         renderer.getCamera()->followModel(player.getModel()->getModelMatrix());
         m_options->scroll = 0;
 
-        std::cout << player.checkCollision(&cube) << std::endl;
+        player.checkCollision(&collider);
 
         renderer.clear();
 

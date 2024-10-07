@@ -5,6 +5,7 @@
 
 #include "shape.h"
 #include "shader/color.h"
+#include "helper/app_tools.h"
 
 Shape::Shape()
 {
@@ -122,4 +123,23 @@ std::vector<glm::vec3> Shape::getHitboxCoords()
 		hitboxCoords.push_back(coordinate + origin);
 	}
 	return hitboxCoords;
+}
+
+std::vector<std::vector<glm::vec3>> Shape::getAbsoluteTriangles()
+{
+	auto faces = m_pVA->getTriangles();
+	for (auto &face : faces)
+	{
+		for (auto &vertex : face)
+		{
+			vertex = m_modelMat * glm::vec4(vertex, 1.0f);
+		}
+	}
+
+	return faces;
+}
+
+std::vector<std::vector<glm::vec3>> Shape::getRelativeTriangles()
+{
+	return m_pVA->getTriangles();
 }

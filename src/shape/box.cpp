@@ -17,7 +17,7 @@ Box::Box(float w, float h)
 	// Generating position buffer
 	m_width = w;
 	m_height = h;
-	m_pVA->addBuffer(getPosition(), 2);
+	m_pVA->addBuffer(getPosition(), 3);
 
 	// Generating color buffer to white
 	std::vector<float> colors;
@@ -72,9 +72,9 @@ std::vector<float> Box::getPosition()
 	float top = m_height / 2;
 	float bottom = -m_height / 2;
 	std::vector<float> positions{
-		left, top,
-		right, top,
-		left, bottom,
-		right, bottom};
+		left, top, 0,
+		right, top, 0,
+		left, bottom, 0,
+		right, bottom, 0};
 	return positions;
 }

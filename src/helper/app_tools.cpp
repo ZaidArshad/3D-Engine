@@ -39,10 +39,9 @@ float AppTools::calculateHeading(float x, float y)
 	return heading;
 }
 
-template <class T>
-void AppTools::printVec(const T &vec, int length)
+void AppTools::printVec(const glm::vec3 &vec)
 {
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		std::cout << vec[i] << " ";
 	}

@@ -125,3 +125,27 @@ void VertexArray::draw()
 	glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
 	glBindVertexArray(0);
 }
+
+glm::vec3 bufferToVec(const std::vector<float> &buffer, const unsigned int i)
+{
+	const auto trueI = 3 * i;
+	return glm::vec3(buffer[trueI], buffer[trueI + 1], buffer[trueI + 2]);
+}
+
+std::vector<std::vector<glm::vec3>> VertexArray::getTriangles()
+{
+	const VertexLayout positionVL = m_vertexLayouts[0];
+	const std::vector<float> positionBuffer = positionVL.vertices;
+	std::vector<std::vector<glm::vec3>> faces;
+	for (int i = 0; i < m_indices.size(); i += 3)
+	{
+		std::vector<glm::vec3> face{
+			bufferToVec(positionBuffer, m_indices[i]),
+			bufferToVec(positionBuffer, m_indices[i + 1]),
+			bufferToVec(positionBuffer, m_indices[i + 2]),
+		};
+
+		faces.push_back(face);
+	}
+	return faces;
+}

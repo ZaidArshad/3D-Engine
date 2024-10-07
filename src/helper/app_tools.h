@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "glm/glm.hpp"
 
 #define Status unsigned int
 
@@ -16,7 +17,5 @@ public:
 	static float normalizeX(float position);
 	static float normalizeY(float position);
 	static float calculateHeading(float x, float y);
-
-	template <class T>
-	static void printVec(const T &vec, int length);
+	static void printVec(const glm::vec3 &vec);
 };

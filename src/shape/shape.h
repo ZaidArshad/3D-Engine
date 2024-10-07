@@ -30,6 +30,8 @@ public:
 	// -- Virtual -- //
 	virtual void draw();
 	std::vector<glm::vec3> getHitboxCoords();
+	std::vector<std::vector<glm::vec3>> getRelativeTriangles();
+	std::vector<std::vector<glm::vec3>> getAbsoluteTriangles();
 
 protected:
 	VertexArray *m_pVA;

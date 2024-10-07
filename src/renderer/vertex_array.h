@@ -4,6 +4,8 @@
 
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+
+#include "glm/glm.hpp"
 #include "texture.h"
 
 struct VertexLayout
@@ -23,6 +25,7 @@ public:
 	~VertexArray();
 
 	const std::vector<VertexLayout> getVertexLayouts();
+	std::vector<std::vector<glm::vec3>> getTriangles();
 
 	void bind();
 	void unbind();
