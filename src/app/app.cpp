@@ -155,7 +155,7 @@ Status App::run()
 
     Box collider = Box(0.1f, 0.1f);
     collider.translate(glm::vec3(0.05, 0.05, 0.05));
-    // collider.rotate(glm::vec3(0, glm::half_pi<float>(), 0));
+    collider.rotate(glm::vec3(0, glm::half_pi<float>(), 0));
     collider.setTexture("res/Images/france.png");
     renderer.addShape(&collider, true);
 

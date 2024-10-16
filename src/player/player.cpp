@@ -10,7 +10,7 @@ Player::Player()
 	m_model = new Model("res/Models/waddle/frames/");
 	m_model->setTexture("res/Models/waddle/HrDee.00.png");
 	m_model->scale(glm::vec3(0.1f));
-	m_velocity = 0.05f;
+	m_velocity = 0.01f;
 }
 
 Player::~Player()
@@ -67,14 +67,23 @@ float signedDistance(glm::vec3 p, glm::vec3 normal, glm::vec3 originT)
 	return glm::dot(p, normal) - plane;
 }
 
+glm::vec3 vec3ToEllipsoid(glm::vec3 ellipsoid, glm::vec3 point) {
+	glm::mat3x3 ellipMat{
+		1/ellipsoid[0], 0 ,0,
+		0, 1/ellipsoid[1], 0,
+		0, 0, 1/ellipsoid[2]};
+	return ellipMat*point;
+}
+
 bool Player::checkCollision(Shape *collider)
 {
-	const auto ellipse = m_model->getDimensions() * (0.1f / 2);
-
 	const auto playerOrigin = m_model->getModelMatrix()[3];
+	auto mat = m_model->getModelMatrix();
+	mat[3] = glm::vec4(0.0f);
+	const auto ellipse = mat*glm::vec4((0.5f*m_model->getDimensions()), 1.0f);
 	// const auto coords = collider->getHitboxCoords();
 	// for (const auto &hitboxCoord : coords)
-	// {
+	// 
 	// 	glm::vec3 result = (playerOrigin - hitboxCoord) / (ellipse);
 	// 	if (glm::length(result) < 1)
 	// 	{
@@ -87,8 +96,9 @@ bool Player::checkCollision(Shape *collider)
 	for (const auto &face : faces)
 	{
 		const auto normal = glm::normalize(glm::cross(face[1] - face[0], face[2] - face[0]));
-		std::cout << glm::abs(signedDistance(playerOrigin, normal, colliderOrigin)) << " " << pointInTriangle(playerOrigin, face[0], face[1], face[2]) << " " << glm::length(ellipse) << std::endl;
-		if (glm::abs(signedDistance(playerOrigin, normal, colliderOrigin)) < glm::length(ellipse) &&
+		std::cout << glm::abs(signedDistance(vec3ToEllipsoid(ellipse,playerOrigin), normal, vec3ToEllipsoid(ellipse,colliderOrigin))) << std::endl;
+		//std::cout << glm::abs(signedDistance(playerOrigin, normal, colliderOrigin)) << " " << pointInTriangle(playerOrigin, face[0], face[1], face[2]) << " " << glm::length(ellipse) << std::endl;
+		if (glm::abs(signedDistance(vec3ToEllipsoid(ellipse,playerOrigin), normal, vec3ToEllipsoid(ellipse,colliderOrigin))) < 1 &&
 			pointInTriangle(playerOrigin, face[0], face[1], face[2]))
 		{
 			collider->setColor(0, 1.0f, 0, 1.0f);
